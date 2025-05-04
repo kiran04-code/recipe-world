@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans flex flex-col min-h-screen">
+  <!-- Topbar -->
+  <div class="bg-gray-800 p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+    <h1 class="text-2xl font-bold">UniqueAdmin</h1>
+    <div class="flex gap-3 items-center">
+      <a href="/addrecipe" class="bg-indigo-600 px-4 py-2 rounded hover:bg-indigo-500 transition">➕ Post Recipe</a>
+      <span class="bg-gray-700 px-4 py-2 rounded">👤 Admin</span>
+    </div>
+  </div>
+
+  <!-- Sidebar + Content -->
+  <div class="flex flex-col md:flex-row flex-1">
+    <!-- Sidebar -->
+    <aside class="w-full md:w-64 bg-gray-800 p-4">
+      <ul class="space-y-4">
+        <li><a href="#" class="block hover:text-indigo-400">📊 Dashboard</a></li>
+        <li><a href="#" class="block hover:text-indigo-400">👥 Users</a></li>
+        <li><a href="#" class="block hover:text-indigo-400">📝 Posts</a></li>
+        <li><a href="#" class="block hover:text-indigo-400">💬 Comments</a></li>
+        <li><a href="#" class="block hover:text-indigo-400">⚙️ Settings</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 space-y-6">
+
+      <!-- Stats -->
+     <a href="/allusers">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-gray-700 p-4 rounded text-center">
+          <h2 class="text-lg">Users</h2>
+          <p class="text-3xl font-bold"><%- userdata.length %></p>
+        </div>
+     </a>
+       <a href="/allrecips">
+        <div class="bg-gray-700 p-4 rounded text-center">
+          <h2 class="text-lg">Recipes</h2>
+          <p class="text-3xl font-bold"><%- recipedata.length %></p>
+        </div>
+       </a>
+        <div class="bg-gray-700 p-4 rounded text-center">
+          <h2 class="text-lg">Comments</h2>
+          <p class="text-3xl font-bold">2</p>
+        </div>
+        <div class="bg-gray-700 p-4 rounded text-center">
+          <h2 class="text-lg">Reports</h2>
+          <p class="text-3xl font-bold">2</p>
+        </div>
+      </div>
+
+      <!-- Newsletter Summary -->
+      <div class="bg-gray-800 p-6 rounded">
+        <h3 class="text-xl font-semibold mb-2">Newsletter Summary</h3>
+        <p>Total Messages: 2</p>
+        <p>Open Rate: <span class="text-green-400 font-bold">42%</span></p>
+      </div>
+
+      <!-- Announcements -->
+      <div class="bg-gray-800 p-6 rounded">
+        <h3 class="text-xl font-semibold mb-4">Announcements</h3>
+        <div class="border-b py-2 flex justify-between items-center">
+          <div>
+            <p class="font-semibold">🎉 Exciting Features Coming!</p>
+            <p class="text-sm text-gray-400">Stay tuned for new updates next week.</p>
+          </div>
+          <button class="text-red-500 hover:underline">Delete</button>
+        </div>
+        <div class="border-b py-2 flex justify-between items-center">
+          <div>
+            <p class="font-semibold">⚠️ Downtime Notice</p>
+            <p class="text-sm text-gray-400">Site maintenance on Sunday 2 AM - 4 AM.</p>
+          </div>
+          <button class="text-red-500 hover:underline">Delete</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-center py-4 mt-auto">
+    <p class="text-sm text-gray-400">🍽️ “Recipes are memories you can taste.” – Thank you for sharing your delicious ideas.</p>
+    <p class="text-xs text-gray-500 mt-1">&copy; 2025 UniqueAdmin. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

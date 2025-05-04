@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Post New Recipe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans p-6">
+
+  <!-- Main Content Area -->
+  <div class="max-w-2xl mx-auto bg-gray-800 p-6 rounded mt-8">
+    <h2 class="text-2xl font-bold mb-4">Post a New Recipe</h2>
+    <form action="/addrecipe" method="post" enctype="multipart/form-data" class="space-y-4">
+      <!-- Recipe Title -->
+      <input name="title" type="text" placeholder="Recipe Title" class="w-full p-2 bg-gray-700 rounded" required>
+      
+      <!-- Ingredients -->
+      <textarea name="ingredients" placeholder="Ingredients" class="w-full p-2 bg-gray-700 rounded" rows="3" required></textarea>
+      
+      <!-- Steps -->
+      <textarea name="steps" placeholder="Steps" class="w-full p-2 bg-gray-700 rounded" rows="4" required></textarea>
+      
+      <!-- Image Upload -->
+      <div>
+        <label for="recipeImage" class="block text-sm text-gray-300 mb-2">Upload Image</label>
+        <input type="file" name="image" id="recipeImage" class="w-full p-2 bg-gray-700 rounded text-gray-300" accept="image/*">
+      </div>
+
+      <!-- Submit Section -->
+      <div class="flex justify-between">
+        <a href="/admin" class="text-indigo-400 hover:underline">← Back to Dashboard</a>
+        <button type="submit" class="bg-indigo-600 px-4 py-2 rounded hover:bg-indigo-500 transition">Submit</button>
+      </div>
+    </form>
+  </div>
+  <% if (locals.error) { %>
+    <div id="successMessage" class="max-w-sm mx-auto p-3 bg-green-600 rounded-lg shadow-md mb-4 text-white text-sm text-center mt-5">
+      Your recipe has been posted successfully!
+    </div>
+  <% } %>
+  
+  <!-- Footer -->
+  <footer class="mt-8 text-center text-gray-400">
+    <p>&copy; 2025 Kiran Santosh Rathod. All rights reserved.</p>
+    <p>Powered by your Admin Panel</p>
+  </footer>
+
+</body>
+</html>

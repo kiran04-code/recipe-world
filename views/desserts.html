@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/jpeg" href="/modern simple elegant logo for Recipe World website.png">
+<link href="https://fonts.googleapis.com/css2?family=Agu+Display&display=swap" rel="stylesheet">
+    <title>Recipe World | Desserts</title>
+    
+    <link rel="icon" href="/Picsart_25-03-29_20-14-50-954.png" style="border-radius: 200px;" type="image/png">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        #sidebar {
+            width: 280px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        #main-content {
+            flex-grow: 1;
+            padding: 20px;
+            margin-left: 280px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+
+        .card img {
+            border-radius: 10px 10px 0 0;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            bottom: 0;
+            width: 100%;
+        }
+        #chatbot-icon {
+        position: fixed;
+        border-radius: 200px;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1050;
+    }
+    #chatbot-icon:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+        transition: transform 0.3s ease;
+    }
+    .attention {
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.2);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+    #no-btn {
+        background-color: #6c757d;
+        color: white;
+    }
+    #no-btn:hover {
+        background-color: #5a6268;
+    }
+        #chatbotPopup {
+            z-index: 1051;
+        }
+        #chatbotModal {
+            z-index: 1051;
+        }
+        #chatbotPopup .modal-content {
+            border-radius: 20px;
+        }
+        #chatbotModal .modal-content {
+            border-radius: 20px;
+        }
+        #more-recipes {
+        animation: fadeInUp 1.5s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .floating-home {
+        animation: float 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-5px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+    .recipe-section {
+        margin-top: 40px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .recipe-section h3 {
+        color: #343a40;
+        font-weight: bold;
+    }
+    .tips-list {
+        background-color: #fff3cd;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .user-reviews {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .faq-section details {
+        margin-bottom: 10px;
+        padding: 10px;
+        background: #e9ecef;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+    .faq-section summary {
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+    .faq-section details[open] {
+        background: #d4edda;
+    }
+    .newsletter-section {
+        background-color: #d1ecf1;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+    .card {
+        transition: transform 0.3s;
+    }
+    .card:hover {
+        transform: scale(1.05);
+    }
+    </style>
+</head>
+
+<body>
+    <div id="sidebar">
+        <a href="/" class="d-flex align-items-center mb-3 me-md-auto link-dark text-decoration-none">
+            <img src="/logo.png" alt="Recipe World Logo"
+                    style="height: 70px; margin-right: 5px; border-radius: 50px; font-weight: 400;">
+            <span class="fs-4" style="font-family: Agu Display, serif;">Recipe World</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li><a href="/new.html" class="nav-link link-dark">Home</a></li>
+            <li><a href="#" class="nav-link active floating-home" aria-current="page">Desserts</a></li>
+            <li><a href="/quickMeal.html" class="nav-link link-dark">Quick Meal</a></li>
+            <li><a href="#" class="nav-link link-dark">Vegetarian</a></li>
+            <li><a href="#" class="nav-link link-dark">Non-Veg</a></li>
+            <li><a href="#" class="nav-link link-dark">Share Your Recipe</a></li>
+            <li><a href="/savedRecipe.html" class="nav-link link-dark">My Saved Recipes</a></li>
+
+        </ul>
+        <hr>
+        <a href="/login.html"><button data-mdb-button-init data-mdb-ripple-init class="btn btn-block fa-lg mb-3" type="button" style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; border: none; width: 100%; ">Log in</button></a> 
+    </div>
+
+    <div id="main-content">
+        <h1 class="mb-4">Delicious Desserts</h1>
+        <div class="modal fade" id="chatbotModal" tabindex="-1" aria-labelledby="chatbotModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="chatbotModalLabel">Need Help?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Would you like to use our Chatbot for Smoother Navigation thorough the Page?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="openChatbot()">Yes, Open Chatbot</button>
+                        <button type="button" class="btn btn-secondary" id="no-btn" data-bs-dismiss="modal">No</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://th.bing.com/th/id/OIP.gowFKAwL62m_5deANH5jWAHaE8?rs=1&pid=ImgDetMain" alt="Chocolate Brownie">
+                    <div class="card-body">
+                        <h5 class="card-title">Chocolate Brownie</h5>
+                        <p class="card-text">A rich and fudgy chocolate brownie to satisfy your sweet tooth.</p>
+                        <a href="#" class="btn btn-primary">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://th.bing.com/th/id/R.634fa577892c3ff6717ddc8c97a396d9?rik=6pyiG1yVAsgFcA&riu=http%3a%2f%2fwww.taste.com.au%2fimages%2frecipes%2fagt%2f2008%2f05%2f19621.jpg&ehk=5yT6egtaJbt%2bAOKsKjm5tJmh3i%2b0OcKZcPvEIHuQy%2fQ%3d&risl=&pid=ImgRaw&r=0" alt="Cheesecake">
+                    <div class="card-body">
+                        <h5 class="card-title">Classic Cheesecake</h5>
+                        <p class="card-text">A smooth and creamy cheesecake with a graham cracker crust.</p>
+                        <a href="#" class="btn btn-primary">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://img.freepik.com/premium-photo/tempting-chocolate-cake-with-chocolate-pearls_1170794-33092.jpg" alt="Chocolate Cake">
+                    <div class="card-body">
+                        <h5 class="card-title">Chocolate Cake</h5>
+                        <p class="card-text">Indulge in this rich and moist chocolate cake.</p>
+                        <a href="#" class="btn btn-primary">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <!-- Slideshow -->
+        <div id="dessertCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://images.pexels.com/photos/2144112/pexels-photo-2144112.jpeg" class="d-block w-100" alt="Cupcakes">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://images.pexels.com/photos/461430/pexels-photo-461430.jpeg" class="d-block w-100" alt="Fruit Tart">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg" class="d-block w-100" alt="Ice Cream Sundae">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#dessertCarousel" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#dessertCarousel" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </a>
+        </div>
+
+        <!-- Additional Dessert Cards -->
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="https://thumbs.dreamstime.com/b/colorful-assorted-macarons-stacked-white-surface-daytime-vibrant-assortment-pink-orange-green-brown-tones-308250354.jpg" class="card-img-top" alt="Macarons">
+                    <div class="card-body">
+                        <h5 class="card-title">Colorful Macarons</h5>
+                        <p class="card-text">Delicate French macarons with a variety of flavors and fillings.</p>
+                        <a href="#" class="btn btn-primary">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="https://th.bing.com/th/id/OIP.ns3vpk43xNx9hBSD9_e_uwHaE8?rs=1&pid=ImgDetMain" class="card-img-top" alt="Apple Pie">
+                    <div class="card-body">
+                        <h5 class="card-title">Classic Apple Pie</h5>
+                        <p class="card-text">A warm, comforting apple pie with a flaky crust and cinnamon filling.</p>
+                        <a href="#" class="btn btn-primary">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <!-- chat bot -->
+            <img id="chatbot-icon" src="https://img.freepik.com/premium-vector/robot-head-with-speech-bubble-blue-circle-white-background-chat-bot-logo-design-concept_418020-500.jpg" 
+            alt="Chatbot" 
+            width="120" 
+            onclick="openChatbot()">
+       
+        </div>
+        <div class="modal fade" id="chatbotPopup" tabindex="-1" aria-labelledby="chatbotPopupLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="chatbotPopupLabel">Recipe World Chatbot</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <iframe src="/bot.html" width="100%" height="500px" style="border:none;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- More Quick Meal Recipes -->
+<section class="recipe-section">
+    <h3>More Quick Meal Recipes</h3>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card" id="recipe-card">
+                <img src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg" class="card-img-top" alt="Avocado Toast">
+                <div class="card-body">
+                    <h5 class="card-title">Avocado Toast</h5>
+                    <p class="card-text">A delicious and healthy avocado toast, ready in minutes.</p>
+                    <a href="#" class="btn btn-primary">View Recipe</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" id="recipe-card">
+                <img src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg" class="card-img-top" alt="Omelette Wrap">
+                <div class="card-body">
+                    <h5 class="card-title">Omelette Wrap</h5>
+                    <p class="card-text">A protein-packed wrap that keeps you full longer.</p>
+                    <a href="#" class="btn btn-primary">View Recipe</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" id="recipe-card">
+                <img src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg" class="card-img-top" alt="Fruit Smoothie">
+                <div class="card-body">
+                    <h5 class="card-title">Fruit Smoothie</h5>
+                    <p class="card-text">A refreshing smoothie packed with vitamins and flavor.</p>
+                    <a href="#" class="btn btn-primary">View Recipe</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Cooking Tips Section -->
+<section class="recipe-section tips-list">
+    <h3>Quick Cooking Tips</h3>
+    <ul>
+        <li>Use pre-cut vegetables to save time.</li>
+        <li>Cook in batches and store meals for the week.</li>
+        <li>Use one-pot recipes to minimize dishwashing.</li>
+        <li>Invest in a pressure cooker for faster cooking.</li>
+    </ul>
+</section>
+
+<!-- User Reviews Section -->
+<section class="recipe-section user-reviews">
+    <h3>User Reviews</h3>
+    <p><strong>Sarah:</strong> "The quick pasta recipe saved me so much time! Delicious and easy to make."</p>
+    <p><strong>John:</strong> "Loved the veggie stir-fry. Perfect for my meal prep routine!"</p>
+    <p><strong>Lisa:</strong> "The avocado toast recipe is my new breakfast favorite!"</p>
+</section>
+
+<!-- FAQ Section -->
+<section class="recipe-section faq-section">
+    <h3>Frequently Asked Questions</h3>
+    <details>
+        <summary>What are some essential ingredients for quick meals?</summary>
+        <p>Keep pasta, eggs, frozen veggies, and canned beans handy for quick cooking.</p>
+    </details>
+    <details>
+        <summary>Can I replace ingredients in recipes?</summary>
+        <p>Yes! Feel free to substitute based on dietary needs and preferences.</p>
+    </details>
+    <details>
+        <summary>How can I make my meals healthier?</summary>
+        <p>Use whole grains, lean proteins, and fresh vegetables for nutritious meals.</p>
+    </details>
+</section>
+
+<!-- Newsletter Subscription -->
+<section class="recipe-section newsletter-section text-center">
+    <h3>Subscribe for More Recipes</h3>
+    <p>Get the latest quick meal ideas delivered to your inbox.</p>
+    <input type="email" placeholder="Enter your email" class="form-control" style="max-width: 300px; margin: auto;">
+    <button class="btn btn-primary mt-2" style="width: 200px;">Subscribe</button>
+</section>
+
+<!-- Video Tutorials -->
+<section class="recipe-section">
+    <h3>Quick Meal Video Tutorials</h3>
+    <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+</section>
+
+       <!-- More Recipes Coming Soon Section (Hidden Initially) -->
+<section id="more-recipes" class="text-center my-5" style="display: none;">
+    <h2 class="fw-bold">🍽️ More Delicious Recipes Coming Soon! 🍽️</h2>
+    <p>We are always working on bringing you more mouth-watering recipes. Stay tuned!</p>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2025 Recipe World. All rights reserved.</p>
+        </footer>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>window.onload = () => new bootstrap.Modal(document.getElementById('chatbotModal')).show();</script>
+<script>
+    
+    window.addEventListener('scroll', function () {
+        const moreRecipesSection = document.getElementById('more-recipes');
+        
+        // Check if the user has scrolled to the bottom of the page
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            moreRecipesSection.style.display = 'block';
+        }
+    });
+
+    function openChatbot() {
+        new bootstrap.Modal(document.getElementById('chatbotPopup')).show();
+    }
+    window.onload = () => new bootstrap.Modal(document.getElementById('chatbotModal')).show();
+
+    document.getElementById('no-btn').addEventListener('click', () => {
+        const chatbotIcon = document.getElementById('chatbot-icon');
+        setTimeout(() => {
+            chatbotIcon.classList.add('attention');
+
+            setTimeout(() => chatbotIcon.classList.remove('attention'), 5000);
+        }, 500);
+    });
+</script>

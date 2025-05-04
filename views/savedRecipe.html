@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/jpeg" href="/modern simple elegant logo for Recipe World website.png">
+<link href="https://fonts.googleapis.com/css2?family=Agu+Display&display=swap" rel="stylesheet">
+    <title>Recipe World | Desserts</title>
+    
+    <link rel="icon" href="/Picsart_25-03-29_20-14-50-954.png" style="border-radius: 200px;" type="image/png">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        #sidebar {
+            width: 280px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        #main-content {
+            flex-grow: 1;
+            padding: 20px;
+            margin-left: 280px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+
+        .card img {
+            border-radius: 10px 10px 0 0;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            bottom: 0;
+            width: 100%;
+        }
+        #chatbot-icon {
+        position: fixed;
+        border-radius: 200px;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1050;
+    }
+    #chatbot-icon:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+        transition: transform 0.3s ease;
+    }
+    .attention {
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.2);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+    #no-btn {
+        background-color: #6c757d;
+        color: white;
+    }
+    #no-btn:hover {
+        background-color: #5a6268;
+    }
+        #chatbotPopup {
+            z-index: 1051;
+        }
+        #chatbotModal {
+            z-index: 1051;
+        }
+        #chatbotPopup .modal-content {
+            border-radius: 20px;
+        }
+        #chatbotModal .modal-content {
+            border-radius: 20px;
+        }
+        #more-recipes {
+        animation: fadeInUp 1.5s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .floating-home {
+        animation: float 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-5px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+    .recipe-section {
+        margin-top: 40px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .recipe-section h3 {
+        color: #343a40;
+        font-weight: bold;
+    }
+    .tips-list {
+        background-color: #fff3cd;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .user-reviews {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .faq-section details {
+        margin-bottom: 10px;
+        padding: 10px;
+        background: #e9ecef;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+    .faq-section summary {
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+    .faq-section details[open] {
+        background: #d4edda;
+    }
+    .newsletter-section {
+        background-color: #d1ecf1;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+    .card {
+        transition: transform 0.3s;
+    }
+    .card:hover {
+        transform: scale(1.05);
+    }
+    </style>
+</head>
+
+<body>
+    <div id="sidebar">
+        <a href="/" class="d-flex align-items-center mb-3 me-md-auto link-dark text-decoration-none">
+            <img src="/logo.png" alt="Recipe World Logo"
+            style="height: 70px; margin-right: 5px; border-radius: 50px; font-weight: 400;">            <span class="fs-4" style="font-family: Agu Display, serif;">Recipe World</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li><a href="/new.html" class="nav-link link-dark">Home</a></li>
+            <li><a href="#" class="nav-link link-dark" aria-current="page">Desserts</a></li>
+            <li><a href="/quickMeal.html" class="nav-link link-dark">Quick Meal</a></li>
+            <li><a href="#" class="nav-link link-dark">Vegetarian</a></li>
+            <li><a href="#" class="nav-link link-dark">Non-Veg</a></li>
+            <li><a href="#" class="nav-link link-dark">Share Your Recipe</a></li>
+            <li><a href="#" class=" nav-link active floating-home">Saved Recipes</a></li>
+        </ul>
+        <hr>
+        <a href="/login.html"><button data-mdb-button-init data-mdb-ripple-init class="btn btn-block fa-lg mb-3" type="button" style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; border: none; width: 100%; ">Log in</button></a> 
+    </div>
+
+    <div id="main-content">
+        <h1 class="mb-4">Your Saved Recipes : </h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="https://th.bing.com/th/id/OIP.gowFKAwL62m_5deANH5jWAHaE8?rs=1&pid=ImgDetMain" alt="Chocolate Brownie">
+                    <div class="card-body">
+                        <h5 class="card-title">Chocolate Brownie</h5>
+                        <p class="card-text">A rich and fudgy chocolate brownie to satisfy your sweet tooth.</p>
+                        <a href="#" class="btn btn-primary">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="https://th.bing.com/th/id/R.634fa577892c3ff6717ddc8c97a396d9?rik=6pyiG1yVAsgFcA&riu=http%3a%2f%2fwww.taste.com.au%2fimages%2frecipes%2fagt%2f2008%2f05%2f19621.jpg&ehk=5yT6egtaJbt%2bAOKsKjm5tJmh3i%2b0OcKZcPvEIHuQy%2fQ%3d&risl=&pid=ImgRaw&r=0" alt="Cheesecake">
+                    <div class="card-body">
+                        <h5 class="card-title">Classic Cheesecake</h5>
+                        <p class="card-text">A smooth and creamy cheesecake with a graham cracker crust.</p>
+                        <a href="#" class="btn btn-primary">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="col-md-4">
+                <div class="card">
+                    <img src="https://img.freepik.com/premium-photo/tempting-chocolate-cake-with-chocolate-pearls_1170794-33092.jpg" alt="Chocolate Cake">
+                    <div class="card-body">
+                        <h5 class="card-title">Chocolate Cake</h5>
+                        <p class="card-text">Indulge in this rich and moist chocolate cake.</p>
+                        <a href="#" class="btn btn-primary">View Recipe</a>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card" id="recipe-card">
+                <img src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg" class="card-img-top" alt="Avocado Toast">
+                <div class="card-body">
+                    <h5 class="card-title">Avocado Toast</h5>
+                    <p class="card-text">A delicious and healthy avocado toast, ready in minutes.</p>
+                    <a href="#" class="btn btn-primary">View Recipe</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" id="recipe-card">
+                <img src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg" class="card-img-top" alt="Omelette Wrap">
+                <div class="card-body">
+                    <h5 class="card-title">Omelette Wrap</h5>
+                    <p class="card-text">A protein-packed wrap that keeps you full longer.</p>
+                    <a href="#" class="btn btn-primary">View Recipe</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" id="recipe-card">
+                <img src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg" class="card-img-top" alt="Fruit Smoothie">
+                <div class="card-body">
+                    <h5 class="card-title">Fruit Smoothie</h5>
+                    <p class="card-text">A refreshing smoothie packed with vitamins and flavor.</p>
+                    <a href="#" class="btn btn-primary">View Recipe</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+        <footer>
+            <p>&copy; 2025 Recipe World. All rights reserved.</p>
+        </footer>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>window.onload = () => new bootstrap.Modal(document.getElementById('chatbotModal')).show();</script>
+<script>
+    
+    window.addEventListener('scroll', function () {
+        const moreRecipesSection = document.getElementById('more-recipes');
+        
+        // Check if the user has scrolled to the bottom of the page
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            moreRecipesSection.style.display = 'block';
+        }
+    });
+
+    function openChatbot() {
+        new bootstrap.Modal(document.getElementById('chatbotPopup')).show();
+    }
+    window.onload = () => new bootstrap.Modal(document.getElementById('chatbotModal')).show();
+
+    document.getElementById('no-btn').addEventListener('click', () => {
+        const chatbotIcon = document.getElementById('chatbot-icon');
+        setTimeout(() => {
+            chatbotIcon.classList.add('attention');
+
+            setTimeout(() => chatbotIcon.classList.remove('attention'), 5000);
+        }, 500);
+    });
+</script>

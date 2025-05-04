@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Helper Chatbot</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #9595f6 0%, #d58383 100%);
+            background-image: url('https://images.unsplash.com/photo-1546069901-ba9590a8eda4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        #chat-container {
+            width: 450px;
+            max-width: 90%;
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #5e52ba 0%, #fac4f8 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .chat-header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-header h2 {
+            margin: 5px 0 0;
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .chat-header::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 500 20" xmlns="http://www.w3.org/2000/svg"><path d="M0,10 C150,25 350,0 500,10 L500,20 L0,20 Z" fill="white"/></svg>');
+            background-size: 100% 100%;
+        }
+
+        .chat-body {
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-footer {
+            display: flex;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            background: white;
+            padding: 10px;
+        }
+
+        #user-input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 25px;
+            outline: none;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #user-input:focus {
+            border-color: #ff9a9e;
+            box-shadow: 0 0 0 3px rgba(255, 154, 158, 0.2);
+        }
+
+        #send-btn {
+            padding: 0;
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5e52ba 0%, #fac4f8 100%);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #send-btn:active {
+            transform: translateY(0);
+        }
+
+        .message {
+            margin: 8px 0;
+            padding: 12px 16px;
+            border-radius: 18px;
+            max-width: 80%;
+            line-height: 1.4;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            color: #333;
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .bot-message {
+            background: white;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
+        }
+
+        .bot-message::before {
+            content: "";
+            position: absolute;
+            left: -8px;
+            top: 12px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid white;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8rem;
+            color: #888;
+            background: white;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .footer p {
+            margin: 3px 0;
+        }
+
+        /* Recipe suggestion styles */
+        .recipe-suggestion {
+            display: flex;
+            margin: 10px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .recipe-suggestion:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .recipe-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        .recipe-info {
+            padding: 10px;
+            flex-grow: 1;
+        }
+
+        .recipe-title {
+            font-weight: 600;
+            margin: 0 0 5px;
+            color: #333;
+        }
+
+        .recipe-meta {
+            font-size: 0.8rem;
+            color: #666;
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 18px;
+            align-self: flex-start;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #bbb;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingAnimation {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); background-color: #888; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Chatbot Container -->
+    <div id="chat-container">
+        <div class="chat-header">
+            <h1>Recipe Helper</h1>
+            <h2>Find your perfect recipe with me!</h2>
+        </div>
+
+        <div class="chat-body" id="chat-body">
+            <div class="bot-message message">Hello! I'm your recipe assistant. What would you like to cook today? You can ask for recipes, cooking tips, or meal ideas!</div>
+            <div class="recipe-suggestion">
+                <img src="https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Pasta" class="recipe-image">
+                <div class="recipe-info">
+                    <div class="recipe-title">Creamy Garlic Pasta</div>
+                    <div class="recipe-meta">
+                        <span>🍝 30 mins</span>
+                        <span>⭐ 4.8</span>
+                        <span>🥗 Vegetarian</span>
+                    </div>
+                </div>
+            </div>
+            <div class="recipe-suggestion">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Salad" class="recipe-image">
+                <div class="recipe-info">
+                    <div class="recipe-title">Fresh Summer Salad</div>
+                    <div class="recipe-meta">
+                        <span>🥗 15 mins</span>
+                        <span>⭐ 4.5</span>
+                        <span>🌱 Vegan</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-footer">
+            <input type="text" id="user-input" placeholder="Ask for a recipe or cooking tip..." onkeypress="handleKeyPress(event)">
+            <button id="send-btn" onclick="sendMessage()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+
+        <div class="footer">
+            <p>Your Personal Recipe Assistant</p>
+            <p>Powered by Mistral AI</p>
+        </div>
+    </div>
+
+    <!-- Chatbot Script -->
+    <script>
+        const chatBody = document.getElementById('chat-body');
+        const userInput = document.getElementById('user-input');
+
+        // Function to send user message
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+
+            // Display user message
+            appendMessage('user', message);
+            userInput.value = '';
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate bot response (You can integrate with an actual backend here)
+            setTimeout(() => {
+                removeTypingIndicator();
+                const botResponse = getBotResponse(message);
+                if (Array.isArray(botResponse)) {
+                    botResponse.forEach(response => {
+                        if (response.type === 'message') {
+                            appendMessage('bot', response.text);
+                        } else if (response.type === 'recipe') {
+                            appendRecipeSuggestion(response);
+                        }
+                    });
+                } else {
+                    appendMessage('bot', botResponse);
+                }
+            }, 1500);
+        }
+
+        // Handle "Enter" key to send message
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') sendMessage();
+        }
+
+        // Function to append message to chat
+        function appendMessage(sender, message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `${sender}-message message`;
+            messageDiv.textContent = message;
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            `;
+            chatBody.appendChild(typingDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // Remove typing indicator
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        // Append recipe suggestion
+        function appendRecipeSuggestion(recipe) {
+            const recipeDiv = document.createElement('div');
+            recipeDiv.className = 'recipe-suggestion';
+            recipeDiv.innerHTML = `
+                <img src="${recipe.image}" alt="${recipe.title}" class="recipe-image">
+                <div class="recipe-info">
+                    <div class="recipe-title">${recipe.title}</div>
+                    <div class="recipe-meta">
+                        <span>${recipe.time}</span>
+                        <span>${recipe.rating}</span>
+                        <span>${recipe.tags}</span>
+                    </div>
+                </div>
+            `;
+            chatBody.appendChild(recipeDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // Enhanced bot response logic for recipe navigation
+        function getBotResponse(input) {
+            input = input.toLowerCase();
+            
+            if (input.includes('hello') || input.includes('hi')) {
+                return 'Hi there! Ready to explore some delicious recipes? What are you in the mood for today?';
+            }
+            
+            if (input.includes('recipe') || input.includes('dish') || input.includes('make')) {
+                if (input.includes('pasta') || input.includes('italian')) {
+                    return [
+                        {
+                            type: 'message',
+                            text: 'Here are some delicious pasta recipes you might enjoy:'
+                        },
+                        {
+                            type: 'recipe',
+                            title: 'Creamy Mushroom Pasta',
+                            image: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
+                            time: '🍝 25 mins',
+                            rating: '⭐ 4.7',
+                            tags: '🥗 Vegetarian'
+                        },
+                        {
+                            type: 'recipe',
+                            title: 'Spicy Arrabiata Pasta',
+                            image: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
+                            time: '🍝 20 mins',
+                            rating: '⭐ 4.9',
+                            tags: '🌶️ Spicy'
+                        }
+                    ];
+                } else if (input.includes('salad') || input.includes('healthy')) {
+                    return [
+                        {
+                            type: 'message',
+                            text: 'These fresh salad recipes are perfect for a healthy meal:'
+                        },
+                        {
+                            type: 'recipe',
+                            title: 'Avocado & Quinoa Salad',
+                            image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
+                            time: '🥗 15 mins',
+                            rating: '⭐ 4.6',
+                            tags: '🌱 Vegan'
+                        },
+                        {
+                            type: 'recipe',
+                            title: 'Greek Salad with Feta',
+                            image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
+                            time: '🥗 10 mins',
+                            rating: '⭐ 4.8',
+                            tags: '🧀 Vegetarian'
+                        }
+                    ];
+                } else if (input.includes('dessert') || input.includes('sweet')) {
+                    return [
+                        {
+                            type: 'message',
+                            text: 'Sweet treats coming right up! Try these delicious desserts:'
+                        },
+                        {
+                            type: 'recipe',
+                            title: 'Chocolate Lava Cake',
+                            image: 'https://images.unsplash.com/photo-1564355808539-22fda35bed7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
+                            time: '🍰 35 mins',
+                            rating: '⭐ 4.9',
+                            tags: '🍫 Chocolate'
+                        },
+                        {
+                            type: 'recipe',
+                            title: 'Berry Cheesecake',
+                            image: 'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
+                            time: '🍰 50 mins',
+                            rating: '⭐ 4.7',
+                            tags: '🍓 Fruity'
+                        }
+                    ];
+                } else {
+                    return 'I have thousands of recipes to share! Could you tell me what type of cuisine or ingredients you\'re interested in?';
+                }
+            }
+            
+            if (input.includes('help') || input.includes('how to') || input.includes('tip')) {
+                return 'I can help you find recipes based on ingredients, cuisine type, dietary restrictions, or cooking time. Just tell me what you\'re looking for!';
+            }
+            
+            if (input.includes('thank') || input.includes('thanks')) {
+                return 'You\'re very welcome! Happy cooking! Let me know if you need anything else.';
+            }
+            
+            return 'I\'m here to help you discover amazing recipes! Tell me what you\'re craving or what ingredients you have, and I\'ll suggest something delicious.';
+        }
+    </script>
+</body>
+</html>
